@@ -16,9 +16,9 @@ public class Login {
         driver.findElement(By.id("sign-in")).click();
     }
 
-    public boolean hasInvalidCredentials(){
+    public boolean hasInvalidCredentials() {
         return driver.findElement(
-                By.xpath("//*[@id=\"root\"]/div/main/div/form/div/div/div/div[1]/div[2]"))
+                        By.xpath("//*[@id=\"root\"]/div/main/div/form/div/div/div/div[1]/div[2]"))
                 .isDisplayed();
     }
 }

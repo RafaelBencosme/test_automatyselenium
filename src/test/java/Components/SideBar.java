@@ -10,7 +10,7 @@ public class SideBar {
         this.driver = driver;
     }
 
-    public void selectStudents(){
+    public void selectStudents() {
         driver.findElement(By.xpath("//*[@id=\"menu-students\"]/div/div[2]/span")).click();
     }
 }

@@ -23,15 +23,15 @@ public class Students {
             String phone,
             String birthday,
             String province
-            ) {
+    ) {
         driver.findElement(By.id("firstName")).sendKeys(firstName);
         driver.findElement(By.id("lastName")).sendKeys(lastName);
         driver.findElement(By.id("email")).sendKeys(email);
         driver.findElement(By.id("phone")).sendKeys(phone);
         WebElement birthDay = driver.findElement(By.cssSelector("[id='\\:r8\\:']"));
         birthDay.click();
-        birthDay.sendKeys(Keys.chord(Keys.CONTROL, "a")); // Select all
-        birthDay.sendKeys(Keys.BACK_SPACE); // Clear
+        birthDay.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+        birthDay.sendKeys(Keys.BACK_SPACE);
         birthDay.sendKeys(birthday);
         WebElement provinceSelect = driver.findElement(By.id("province-autocomplete"));
         provinceSelect.sendKeys("Santo Domingo");
@@ -39,7 +39,7 @@ public class Students {
         element.click();
     }
 
-    public void selectRegister(){
+    public void selectRegister() {
         driver.findElement(By.id("register")).click();
     }
 

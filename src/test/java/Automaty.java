@@ -41,7 +41,7 @@ public class Automaty {
     }
 
     @Test
-    public void whenNavigatingToStudentForm_withCorrectInformation_shouldBeAbleToRegister(){
+    public void whenNavigatingToStudentForm_withCorrectInformation_shouldBeAbleToRegister() {
         driver.findElement(By.xpath("//*[@id=\"menu-students\"]/div/div[2]/span")).click();
 
         var sideBar = new SideBar(driver);
