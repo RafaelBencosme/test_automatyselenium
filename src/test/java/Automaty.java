@@ -1,18 +1,17 @@
+import Components.SideBar;
 import Pages.Login;
+import Pages.Students;
 import Pages.Welcome;
 import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import static com.google.common.truth.Truth.assertThat;
-
-
 import java.time.Duration;
+
+import static com.google.common.truth.Truth.assertThat;
 
 public class Automaty {
     WebDriver driver;
@@ -42,28 +41,25 @@ public class Automaty {
     }
 
     @Test
-    public void whenNavigatingToStudentForm_withCorrectInformation_shouldBeAbleToRegister() throws InterruptedException {
+    public void whenNavigatingToStudentForm_withCorrectInformation_shouldBeAbleToRegister(){
         driver.findElement(By.xpath("//*[@id=\"menu-students\"]/div/div[2]/span")).click();
-        driver.findElement(By.id("firstName")).sendKeys("rafa");
-        driver.findElement(By.id("lastName")).sendKeys("benco");
-        driver.findElement(By.id("email")).sendKeys("rafa@rafa.rafa");
-        driver.findElement(By.id("phone")).sendKeys("809-220-1111");
 
+        var sideBar = new SideBar(driver);
+        sideBar.selectStudents();
 
-        WebElement birthDay = driver.findElement(By.cssSelector("[id='\\:r8\\:']"));
-        birthDay.click();
-        birthDay.sendKeys(Keys.chord(Keys.CONTROL, "a")); // Select all
-        birthDay.sendKeys(Keys.BACK_SPACE); // Clear
-        birthDay.sendKeys("09-27-1995");
+        var students = new Students(driver);
+        students.fill(
+                "rafa",
+                "benco",
+                "rafa@rafa.rafa",
+                "809-220-1111",
+                "09-27-1995",
+                "Santo Domingo"
+        );
 
-        WebElement province = driver.findElement(By.id("province-autocomplete"));
-        province.sendKeys("Santo Domingo");
-        WebElement element = driver.findElement(By.xpath("//*[contains(text(), 'Santo Domingo')]"));
-        element.click();
+        students.selectRegister();
 
-        driver.findElement(By.id("register")).click();
-
-        assertThat(driver.findElement(By.xpath("//*[contains(text(), 'Thanks for')]")).isDisplayed()).isTrue();
+        assertThat(students.hasRegisteredToast()).isTrue();
     }
 
     @AfterMethod
