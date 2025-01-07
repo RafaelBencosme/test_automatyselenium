@@ -4,6 +4,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -14,7 +16,26 @@ public class Students {
 
     public Students(WebDriver driver) {
         this.driver = driver;
+        PageFactory.initElements(driver, this);
     }
+
+    @FindBy(id = "firstName")
+    WebElement firstNameField;
+
+    @FindBy(id = "lastName")
+    WebElement lastNameField;
+
+    @FindBy(id = "email")
+    WebElement emailField;
+
+    @FindBy (id = "phone")
+    WebElement phoneField;
+
+    @FindBy (css = "[id='\\:r8\\:']")
+    WebElement birthDatePicker;
+
+    @FindBy (id = "province-autocomplete")
+    WebElement provincePicker;
 
     public void fill(
             String firstName,
@@ -24,16 +45,16 @@ public class Students {
             String birthday,
             String province
     ) {
-        driver.findElement(By.id("firstName")).sendKeys(firstName);
-        driver.findElement(By.id("lastName")).sendKeys(lastName);
-        driver.findElement(By.id("email")).sendKeys(email);
-        driver.findElement(By.id("phone")).sendKeys(phone);
-        WebElement birthDay = driver.findElement(By.cssSelector("[id='\\:r8\\:']"));
+        this.firstNameField.sendKeys(firstName);
+        this.lastNameField.sendKeys(lastName);
+        this.emailField.sendKeys(email);
+        this.phoneField.sendKeys(phone);
+        WebElement birthDay = this.birthDatePicker;
         birthDay.click();
         birthDay.sendKeys(Keys.chord(Keys.CONTROL, "a"));
         birthDay.sendKeys(Keys.BACK_SPACE);
         birthDay.sendKeys(birthday);
-        WebElement provinceSelect = driver.findElement(By.id("province-autocomplete"));
+        WebElement provinceSelect = this.provincePicker;
         provinceSelect.sendKeys("Santo Domingo");
         WebElement element = driver.findElement(By.xpath("//*[contains(text(), '" + province + "')]"));
         element.click();
