@@ -1,47 +1,45 @@
 package Pages;
 
+import Utils.PageObject;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 
-public class Students {
-    private final WebDriver driver;
-
-    public Students(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
-    }
+public class Students extends PageObject {
 
     @FindBy(id = "firstName")
-    WebElement firstNameField;
+    private WebElement firstNameField;
 
     @FindBy(id = "lastName")
-    WebElement lastNameField;
+    private WebElement lastNameField;
 
     @FindBy(id = "email")
-    WebElement emailField;
+    private WebElement emailField;
 
     @FindBy(id = "phone")
-    WebElement phoneField;
+    private WebElement phoneField;
 
     @FindBy(css = "[id='\\:r8\\:']")
-    WebElement birthDatePicker;
+    private WebElement birthDatePicker;
 
     @FindBy(id = "province-autocomplete")
-    WebElement provincePicker;
+    private WebElement provincePicker;
 
     @FindBy(id = "register")
-    WebElement register;
+    private WebElement register;
 
     @FindBy(xpath = "//*[contains(text(), 'Thanks for')]")
-    WebElement registerConfirmation;
+    private WebElement registerConfirmation;
+
+    public Students(WebDriver driver) {
+       super(driver);
+    }
 
     public void fill(
             String firstName,
@@ -51,28 +49,28 @@ public class Students {
             String birthday,
             String province
     ) {
-        this.firstNameField.sendKeys(firstName);
-        this.lastNameField.sendKeys(lastName);
-        this.emailField.sendKeys(email);
-        this.phoneField.sendKeys(phone);
-        WebElement birthDay = this.birthDatePicker;
+        firstNameField.sendKeys(firstName);
+        lastNameField.sendKeys(lastName);
+        emailField.sendKeys(email);
+        phoneField.sendKeys(phone);
+        WebElement birthDay = birthDatePicker;
         birthDay.click();
         birthDay.sendKeys(Keys.chord(Keys.CONTROL, "a"));
         birthDay.sendKeys(Keys.BACK_SPACE);
         birthDay.sendKeys(birthday);
-        WebElement provinceSelect = this.provincePicker;
+        WebElement provinceSelect = provincePicker;
         provinceSelect.sendKeys("Santo Domingo");
         WebElement element = driver.findElement(By.xpath("//*[contains(text(), '" + province + "')]"));
         element.click();
     }
 
     public void selectRegister() {
-        this.register.click();
+        register.click();
     }
 
     public boolean hasRegisteredToast() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
         wait.until(ExpectedConditions.visibilityOf(registerConfirmation));
-        return this.registerConfirmation.isDisplayed();
+        return registerConfirmation.isDisplayed();
     }
 }

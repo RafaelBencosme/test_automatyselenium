@@ -1,20 +1,18 @@
 package Pages;
 
+import Utils.PageObject;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
-public class Welcome {
-    private final WebDriver driver;
-
-    public Welcome(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
-    }
+public class Welcome extends PageObject {
 
     @FindBy(id = "title-welcome-back")
-    WebElement titleWelcomeBack;
+    private WebElement titleWelcomeBack;
+
+    public Welcome(WebDriver driver) {
+        super(driver);
+    }
 
     public boolean hasTitle() {
         return this.titleWelcomeBack.isDisplayed();

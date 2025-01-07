@@ -1,20 +1,18 @@
 package Components;
 
+import Utils.PageObject;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
-public class SideBar {
-    private final WebDriver driver;
-
-    public SideBar(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
-    }
+public class SideBar extends PageObject {
 
     @FindBy(xpath = "//*[@id=\"menu-students\"]/div/div[2]/span")
-    WebElement sidebarStudents;
+    private WebElement sidebarStudents;
+
+    public SideBar(WebDriver driver) {
+        super(driver);
+    }
 
     public void selectStudents() {
         this.sidebarStudents.click();

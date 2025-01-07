@@ -1,30 +1,27 @@
 package Pages;
 
+import Utils.PageObject;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
-public class Login {
-    private final WebDriver driver;
-
-    public Login(WebDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
-    }
+public class Login extends PageObject {
 
     @FindBy(id = "username")
-    WebElement usernameField;
+    private WebElement usernameField;
 
     @FindBy(id = "password")
-    WebElement passwordField;
+    private WebElement passwordField;
 
     @FindBy(id = "sign-in")
-    WebElement signIn;
+    private WebElement signIn;
 
     @FindBy(xpath = "//*[@id=\"root\"]/div/main/div/form/div/div/div/div[1]/div[2]")
-    WebElement invalidCredentialsHelper;
+    private WebElement invalidCredentialsHelper;
 
+    public Login(WebDriver driver) {
+        super(driver);
+    }
 
     public void signIn(String username, String password) {
         this.usernameField.sendKeys(username);

@@ -2,28 +2,35 @@ import Components.SideBar;
 import Pages.Login;
 import Pages.Students;
 import Pages.Welcome;
-import Utils.BaseTest;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import static com.google.common.truth.Truth.assertThat;
 
-public class Automaty extends BaseTest {
+public class Automaty {
     private Login logIn;
+    private SideBar sideBar;
+    private Students students;
+    private WebDriver driver;
+    private Welcome welcome;
+
 
     @BeforeMethod
-    @Override
     public void setup() {
-            super.setup();
-            logIn = new Login(driver);
+        driver = new ChromeDriver();
+        logIn = new Login(driver);
+        sideBar = new SideBar(driver);
+        students = new Students(driver);
+        welcome = new Welcome(driver);
     }
 
     @Test
     public void withCorrectCredentials_clicksSignIn_shouldBeAbleToLogin() {
         logIn.signIn("admin", "admin");
 
-        var welcome = new Welcome(driver);
         assertThat(welcome.hasTitle()).isTrue();
     }
 
@@ -36,10 +43,8 @@ public class Automaty extends BaseTest {
 
     @Test
     public void whenNavigatingToStudentForm_withCorrectInformation_shouldBeAbleToRegister() {
-        var sideBar = new SideBar(driver);
         sideBar.selectStudents();
 
-        var students = new Students(driver);
         students.fill(
                 "rafa",
                 "benco",
@@ -55,8 +60,7 @@ public class Automaty extends BaseTest {
     }
 
     @AfterMethod
-    @Override
     public void tearDown() {
-       super.tearDown();
+        driver.quit();
     }
 }
