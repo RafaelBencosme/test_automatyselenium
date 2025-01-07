@@ -15,6 +15,6 @@ public class SideBar extends PageObject {
     }
 
     public void selectStudents() {
-        this.sidebarStudents.click();
+        sidebarStudents.click();
     }
 }

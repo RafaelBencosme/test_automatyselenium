@@ -24,12 +24,12 @@ public class Login extends PageObject {
     }
 
     public void signIn(String username, String password) {
-        this.usernameField.sendKeys(username);
-        this.passwordField.sendKeys(password);
-        this.signIn.click();
+        usernameField.sendKeys(username);
+        passwordField.sendKeys(password);
+        signIn.click();
     }
 
     public boolean hasInvalidCredentials() {
-        return this.invalidCredentialsHelper.isDisplayed();
+        return invalidCredentialsHelper.isDisplayed();
     }
 }

@@ -15,6 +15,6 @@ public class Welcome extends PageObject {
     }
 
     public boolean hasTitle() {
-        return this.titleWelcomeBack.isDisplayed();
+        return titleWelcomeBack.isDisplayed();
     }
 }
