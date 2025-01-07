@@ -28,14 +28,20 @@ public class Students {
     @FindBy(id = "email")
     WebElement emailField;
 
-    @FindBy (id = "phone")
+    @FindBy(id = "phone")
     WebElement phoneField;
 
-    @FindBy (css = "[id='\\:r8\\:']")
+    @FindBy(css = "[id='\\:r8\\:']")
     WebElement birthDatePicker;
 
-    @FindBy (id = "province-autocomplete")
+    @FindBy(id = "province-autocomplete")
     WebElement provincePicker;
+
+    @FindBy(id = "register")
+    WebElement register;
+
+    @FindBy(xpath = "//*[contains(text(), 'Thanks for')]")
+    WebElement registerConfirmation;
 
     public void fill(
             String firstName,
@@ -61,12 +67,12 @@ public class Students {
     }
 
     public void selectRegister() {
-        driver.findElement(By.id("register")).click();
+        this.register.click();
     }
 
     public boolean hasRegisteredToast() {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[contains(text(), 'Thanks for')]")));
-        return driver.findElement(By.xpath("//*[contains(text(), 'Thanks for')]")).isDisplayed();
+        wait.until(ExpectedConditions.visibilityOf(registerConfirmation));
+        return this.registerConfirmation.isDisplayed();
     }
 }
